@@ -1,32 +1,81 @@
-# git_math_done
-Hack Princeton
+<h1>git_math_done: <em>Speech To Text Convertion for Mathematics Courses</em></h1>
 
-Inspiration
+<img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/566/758/datas/gallery.jpg" height="250px"></br>
+<sup><em>f1: front page (the gif may be choppy at first, but it's worth it I promise)</em></sup>
 
-For many first years, keeping up with the course load and the fast-paced university lectures can be a challenge. For many, taking good study notes in mathematics lectures while listening to a professor can be quite challenging. To solve this problem I created the application '\Git'_Math_Done: A tool that converts technical speech into readable Latex format.
+by: Aman Adhav <a href="https://linkedin.com/in/"><img src="https://raw.githubusercontent.com/jrobchin/phormatics/master/screenshots/linkedin.png" height="20px"></a> <a href="https://github.com/jrobchin"><img src="https://raw.githubusercontent.com/jrobchin/phormatics/master/screenshots/github.png" height="20px"></a>
 
-What it does
+[HackPrinceton Fall 2017](https://hackprinceton.com/) project developed in 36 hours, focusing on using A.I. and NLP to build a speech to latex converter for Mathematics/Physics Lectures.
 
-To make it short and sweet, Git_Math_Done is a translation tool that converts plain English Speech Input into readable Latex text. It incorporates algorithms that find specific mathematical symbols/terminology and converts it to Latex. Ex: Speech Input : ("Limit of X approaches 0"), Latex Text Output : {$\lim_{x\to\0}
+This project was the runner up for "Best Use of Azure Services" as awarded by [Microsoft](https://azure.microsoft.com/en-ca/). 
 
-The application reads in the speech input and tries to finds any functions/equations/mathematical terminology in the speech input stream. Once it finds possible matches, it converts parts of the string into Latex. Once the entire speech input stream has been parsed, the data is stored in a text file, the contents of the file can be copied into Microsoft Word or other applications that support Latex.
+### Flask API:
+This app runs as an API built with Flask and PyTorch. Because of Microsoft's key interest in this idea I am unable to add my complete code to this GitHub repo. Key word analyses and graph generation & estimation is performed by the [Flask](http://flask.pocoo.org/) API. To make it short and sweet, Git_Math_Done is a translation tool that converts plain English Speech Input into readable Latex text. It incorporates algorithms that find specific mathematical symbols/terminology and converts it to Latex. Ex: Speech Input : ("Limit of X approaches 0"), Latex Text Output : {$\lim_{x\to\0}
 
-How I built it
+The application reads in the speech input and tries to finds any functions/equations/mathematical terminology in the speech input stream. Once it finds possible matches, it converts parts of the string into Latex. Once the entire speech input stream has been parsed, the data is stored in a text file, the contents of the file can be copied into Microsoft Word or other applications that support Latex. 
 
-Git_Math_Done uses Microsoft Azure's Speech Recognition API for converting the speech input stream. Git_Math_Done is written in Python and the output stream is written in Latex.
 
-Challenges I ran into
+### Currently Supported Functions:
 
-The biggest challenge with this project was identifying an equation in an input stream. As intellectuals, most of us who have taken math courses in their lives can identify a normal mathematical equation. However, a computer might treat any equation as a regular string. The toughest challenge in this project was truly identifying functions hidden in a string. In order to solve this problem, I wrote a machine learning algorithm where the application finds the most common variable name in a given area. Using this peripheral, the application scans for more words in the input stream such as 'equals', 'of', 'function'.
+- Graph: *Graphing a function only there was a function called previously*
+- Basic Mathematics Operators: *Derivative of x^3 + 4x^2 -2*
+- Calculating Answer to a Question with full steps: *Solution powered by Wolfram's API*
 
-Accomplishments that I'm proud of
+### Usage:
 
-This project can identify and 'graph' a function if the method is ever called. This allows the user to produce graphs of any functions they are working with.
+You'll need a few things:
 
-What I learned
+* [Python 3.5.0+](https://www.python.org/downloads/)
+* [NGROK](https://ngrok.com/), to run our Microsoft API an AZURE Key ([AZure](https://azure.microsoft.com/en-ca/))
+* [Git](https://git-scm.com/), to clone this repository
+* A Browser, to view the website of course!
 
-Throughout the course of this hackathon, I learned a variety of new technologies. The most exciting one was Bing Speech Recognition API, which allowed me to translate English into mathematical terms. I was also introduced to Latex, which made representing and graphing much simpler. I hope to use it more often in the future.
+First we must install Microsoft Client Via pip. We assume that you have Git, Python, and NGROK installed. If you don't, please visit the links above to install them.
 
-What's next for Git Math Done
+First, clone the git repository:
+```
+$ git clone https://github.com/dreamInCoDeforlife/git_math_done.git
+```
 
-I will be using Wolfram Alpha API to do computation when asked to compute the answer to a particular question. Lastly, I will be making a plug-in for this project, so the user can use this function in their word documents.
+Then, cd into the repository:
+```
+$ cd git_math_done
+```
+
+Install all dependencies inside requirements.txt file for python:
+```
+$ pip install requirements.txt
+```
+
+Now let's initialize the flask application:
+```
+$ python demo.py
+```
+
+After that, you should get a response that looks something like this:
+
+```
+$ FLASK_APP=demoo.py flask run
+ * Running on http://localhost:5000/
+```
+Now we can turn this private local API public with NGROK:
+
+```
+$ ngrok https 5000
+ngrok by @inconshreveable                                                                               (Ctrl+C to quit)
+
+Session Status                online
+Session Expires               7 hours, 59 minutes
+Version                       2.2.8
+Region                        United States (us)
+Web Interface                 http://127.0.0.1:4040
+Forwarding                    http://58a205b8.ngrok.io -> localhost:5000
+Forwarding                    https://58a205b8.ngrok.io -> localhost:5000
+
+Connections                   ttl     opn     rt1     rt5     p50     p90
+                              0       0       0.00    0.00    0.00    0.00
+```
+Note : The url address changes every 7 hours.
+
+Now via browser setup a connection endpoint that sends converted speech as text value via POST request (Node.JS works great with this).
+
